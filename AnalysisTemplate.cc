@@ -380,7 +380,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
               pt0_DETJetHLTj60->Fill(Event->pfjetchs(0).ptCor(),hweight);
               pt1_DETJetHLTj60->Fill(Event->pfjetchs(1).ptCor(),hweight);
               if ( (Event->pfjetchs(0).ptCor() >= 114.00) && (Event->pfjetchs(0).ptCor() < 133.00) )
-                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor());
+                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor(),hweight);
                     //pt1_DETJet->Fill(Event->pfjetchs(1).ptCor());
                     
             }
@@ -402,7 +402,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
             
             if ( (DETjet_ok[0] == 1) && (DETjet_ok[1] == 1)){
               if ( (Event->pfjetchs(0).ptCor() >= 133.00) && (Event->pfjetchs(0).ptCor() < 220.00) )
-                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor());
+                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor(),hweight);
                     //pt1_DETJet->Fill(Event->pfjetchs(1).ptCor());
               // Other Stuff      
             }
@@ -424,7 +424,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
             
             if ( (DETjet_ok[0] == 1) && (DETjet_ok[1] == 1)){
               if ( (Event->pfjetchs(0).ptCor() >= 220.00) && (Event->pfjetchs(0).ptCor() < 300.00) )
-                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor());
+                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor(),hweight);
                     //pt1_DETJet->Fill(Event->pfjetchs(1).ptCor());
               // Other Stuff      
             }
@@ -446,7 +446,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
             
             if ( (DETjet_ok[0] == 1) && (DETjet_ok[1] == 1)){
               if ( (Event->pfjetchs(0).ptCor() >= 300.00) && (Event->pfjetchs(0).ptCor() < 430.00) )
-                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor());
+                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor(),hweight);
                     //pt1_DETJet->Fill(Event->pfjetchs(1).ptCor());
               // Other Stuff      
             }
@@ -468,7 +468,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
             
             if ( (DETjet_ok[0] == 1) && (DETjet_ok[1] == 1)){
               if ( (Event->pfjetchs(0).ptCor() >= 430.00) && (Event->pfjetchs(0).ptCor() < 507.00) )
-                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor());
+                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor(),hweight);
                     //pt1_DETJet->Fill(Event->pfjetchs(1).ptCor());
               // Other Stuff      
             }
@@ -490,7 +490,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
             
             if ( (DETjet_ok[0] == 1) && (DETjet_ok[1] == 1)){
               if ( (Event->pfjetchs(0).ptCor() >= 570.00) && (Event->pfjetchs(0).ptCor() < 638.00) )
-                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor());
+                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor(),hweight);
                     //pt1_DETJet->Fill(Event->pfjetchs(1).ptCor());
               // Other Stuff      
             }
@@ -512,7 +512,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
             
             if ( (DETjet_ok[0] == 1) && (DETjet_ok[1] == 1)){
               if ( (Event->pfjetchs(0).ptCor() >= 638.00) && (Event->pfjetchs(0).ptCor() < 737.00) )
-                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor());
+                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor(),hweight);
                     //pt1_DETJet->Fill(Event->pfjetchs(1).ptCor());
               // Other Stuff      
             }
@@ -534,7 +534,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
             
             if ( (DETjet_ok[0] == 1) && (DETjet_ok[1] == 1)){
               if ( Event->pfjetchs(0).ptCor() > 737.00 )
-                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor());
+                    pt0_DETJet->Fill(Event->pfjetchs(0).ptCor(),hweight);
                     //pt1_DETJet->Fill(Event->pfjetchs(1).ptCor());
               // Other Stuff      
             }
