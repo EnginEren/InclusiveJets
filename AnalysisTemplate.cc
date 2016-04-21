@@ -559,7 +559,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
      int random=0;
 
      for(unsigned  l=0; l<NEntries; l++) {
-     //  for(unsigned  l=0; l<1000; l++) {
+     //for(unsigned  l=0; l<1000; l++) {
        
        double WeightMC=1;
        unsigned NEntriesNorm=NEntries;
@@ -575,6 +575,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	 if(mMCSlice==0){WeightMC=2022100000*Event->evtHdr().weight()/NEntriesNorm;}//flat MC
 	 if(mMCSlice==1){
 	   
+        /* 
          // MadGraph Monte Carlo
           if(ifile < 11){WeightMC=27540000*Event->evtHdr().weight()/NEntriesNorm;}//100-200 Slice
           if(ifile==11){WeightMC=1717000*Event->evtHdr().weight()/NEntriesNorm;}//200-300 Slice
@@ -584,9 +585,9 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
           if(ifile==15){WeightMC=1206*Event->evtHdr().weight()/NEntriesNorm;}//1000-1500
           if(ifile==16){WeightMC=120.4*Event->evtHdr().weight()/NEntriesNorm;}//1500-2000
           if(ifile==17){WeightMC=25.25*Event->evtHdr().weight()/NEntriesNorm;}//2000-Inf
-             
-       /*  
-            P8 Monte Carlo
+          */   
+       
+      //      P8 Monte Carlo
        if(ifile==0){WeightMC=140932000*Event->evtHdr().weight()/NEntriesNorm;}//30-50 Slice
 	   if(ifile==1){WeightMC=19204300*Event->evtHdr().weight()/NEntriesNorm;}//50-80 Slice
 	   if(ifile==2){WeightMC=2762530*Event->evtHdr().weight()/NEntriesNorm;}//80-120 Slice
@@ -601,7 +602,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if(ifile==11){WeightMC=0.114943*Event->evtHdr().weight()/NEntriesNorm;}//1800-2400
 	   if(ifile==12){WeightMC=0.00682981*Event->evtHdr().weight()/NEntriesNorm;}//2400-3200
 	   if(ifile==13){WeightMC=0.000165445*Event->evtHdr().weight()/NEntriesNorm;}//3200-Inf
-	   */ 
+	    
     }
 
 
@@ -784,7 +785,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
        
 	 ///Apply Jet cuts.  Very Deteral to all existing DET Jets
 	  
-     if (n_PFJets != 2 ) continue; // Dijet event for P8vsMadGraph 
+     //if (n_PFJets != 4 ) continue; // 4jet event for P8vsMadGraph 
 
 	 for(unsigned j=0; j< Event->nPFJetsCHS(); ++j){
 	   if(Event->pfjetchs(j).ptCor()<mMinPt) continue;
@@ -2481,19 +2482,19 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 
      double Entries=0;
      for(int j=1;j<pt_DETInclJet_1bin->GetXaxis()->GetNbins()+1;j++){
-       Entries=pt_DETInclJet_1bin->GetBinContent(j)/(1660*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_1bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_1bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_2bin->GetBinContent(j)/(1660*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_2bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_2bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_3bin->GetBinContent(j)/(1660*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_3bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_3bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_4bin->GetBinContent(j)/(1660*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_4bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_4bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_5bin->GetBinContent(j)/(1660*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_5bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_5bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_6bin->GetBinContent(j)/(1660*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_6bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_6bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_7bin->GetBinContent(j)/(1660*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_7bin->GetBinContent(j)/(3358.46*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_7bin->SetBinContent(j,Entries); 
      }
    }
