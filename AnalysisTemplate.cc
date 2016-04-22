@@ -787,6 +787,8 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	  
      //if (n_PFJets != 4 ) continue; // 4jet event for P8vsMadGraph 
 
+     if (Event->pfjetchs(0).ptCor()/pthat > 3.5 ) continue;      // Suggested by Panos
+
 	 for(unsigned j=0; j< Event->nPFJetsCHS(); ++j){
 	   if(Event->pfjetchs(j).ptCor()<mMinPt) continue;
 	   if(fabs(Event->pfjetchs(j).y())>mYMax) continue;
