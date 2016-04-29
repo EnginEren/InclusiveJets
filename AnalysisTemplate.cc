@@ -445,6 +445,13 @@ void Analysis_Template_MC::beginJob()
    MET_DET  = fs->make<TH1F>("MET_DET","MET_DET",500,0,2000); MET_DET->Sumw2();
    METPhi_DET  = fs->make<TH1F>("METPhi_DET","METPhi_DET",35,-7,7); METPhi_DET->Sumw2();
    FractionMET_DET  = fs->make<TH1F>("FractionMET_DET","FractionMET_DET",50,0,1); FractionMET_DET->Sumw2();
+   FractionMET_DET_1bin  = fs->make<TH1F>("FractionMET_DET_1bin","FractionMET_DET_1bin",50,0,1); FractionMET_DET_1bin->Sumw2();
+   FractionMET_DET_2bin  = fs->make<TH1F>("FractionMET_DET_2bin","FractionMET_DET_2bin",50,0,1); FractionMET_DET_2bin->Sumw2();
+   FractionMET_DET_3bin  = fs->make<TH1F>("FractionMET_DET_3bin","FractionMET_DET_3bin",50,0,1); FractionMET_DET_3bin->Sumw2();
+   FractionMET_DET_4bin  = fs->make<TH1F>("FractionMET_DET_4bin","FractionMET_DET_4bin",50,0,1); FractionMET_DET_4bin->Sumw2();
+   FractionMET_DET_5bin  = fs->make<TH1F>("FractionMET_DET_5bin","FractionMET_DET_5bin",50,0,1); FractionMET_DET_5bin->Sumw2();
+   FractionMET_DET_6bin  = fs->make<TH1F>("FractionMET_DET_6bin","FractionMET_DET_6bin",50,0,1); FractionMET_DET_6bin->Sumw2();
+   FractionMET_DET_7bin  = fs->make<TH1F>("FractionMET_DET_7bin","FractionMET_DET_7bin",50,0,1); FractionMET_DET_7bin->Sumw2();
 
    //B-tag Discriminants
 
@@ -575,7 +582,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	 if(mMCSlice==0){WeightMC=2022100000*Event->evtHdr().weight()/NEntriesNorm;}//flat MC
 	 if(mMCSlice==1){
 	   
-        /* 
+  /*       
          // MadGraph Monte Carlo
           if(ifile < 11){WeightMC=27540000*Event->evtHdr().weight()/NEntriesNorm;}//100-200 Slice
           if(ifile==11){WeightMC=1717000*Event->evtHdr().weight()/NEntriesNorm;}//200-300 Slice
@@ -585,9 +592,10 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
           if(ifile==15){WeightMC=1206*Event->evtHdr().weight()/NEntriesNorm;}//1000-1500
           if(ifile==16){WeightMC=120.4*Event->evtHdr().weight()/NEntriesNorm;}//1500-2000
           if(ifile==17){WeightMC=25.25*Event->evtHdr().weight()/NEntriesNorm;}//2000-Inf
-          */   
-       
-      //      P8 Monte Carlo
+            
+    */   
+      
+        //      P8 Monte Carlo
        if(ifile==0){WeightMC=140932000*Event->evtHdr().weight()/NEntriesNorm;}//30-50 Slice
 	   if(ifile==1){WeightMC=19204300*Event->evtHdr().weight()/NEntriesNorm;}//50-80 Slice
 	   if(ifile==2){WeightMC=2762530*Event->evtHdr().weight()/NEntriesNorm;}//80-120 Slice
@@ -690,7 +698,6 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
        mc_pthat_weighted->Fill(pthat,hweight);
      
        unsigned n_genJets = Event->nGenJets();
-       unsigned n_PFJets = Event->nPFJetsCHS();
        int DetJets=0;
        int DetJetsBTags=0;
        int DETjet_ok[100]; for(int ii=0;ii<100;++ii){DETjet_ok[ii]=0;}
@@ -778,16 +785,25 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	 //cout<<Event->evtHdr().pu()<<" "<<Event->evtHdr().ootpuEarly()<<" "<<Event->evtHdr().ootpuLate()<<" "<<Event->evtHdr().intpu()<<" "<<Event->evtHdr().nbx()<<endl;
 
 	 if(mprintOk==1){
-	   printf("Number of PFJets=%d\n",n_PFJets);
-	   for(unsigned j=0; j<n_PFJets; ++j){
+	   printf("Number of PFJets=%d\n",Event->nPFJetsCHS());
+	   for(unsigned j=0; j<Event->nPFJetsCHS(); ++j){
 	     printf("j=%2d ptCor=%8.3f  y=%6.3f  phi=%6.3f\n",j,Event->pfjetchs(j).ptCor(),Event->pfjetchs(j).y(),Event->pfjetchs(j).phi());}
 	 }
        
 	 ///Apply Jet cuts.  Very Deteral to all existing DET Jets
 	  
-     //if (n_PFJets != 4 ) continue; // 4jet event for P8vsMadGraph 
-
-     if (Event->pfjetchs(0).ptCor()/pthat > 3.5 ) continue;      // Suggested by Panos
+	 //if (n_PFJets != 4 ) continue; // 4jet event for P8vsMadGraph 
+	 //To require a two-jet event
+	 //if (Event->pfjetchs(2).ptCor() > 114 ) continue;      // Suggested by Panos
+	 
+	 //To require a three-jet event
+	 //if (Event->pfjetchs(3).ptCor() > 114 ) continue;      // Suggested by Panos
+             
+	 //To require a four-jet event
+	 //if (Event->pfjetchs(4).ptCor() > 114 ) continue;      // Suggested by Panos
+	 
+	 
+	 if (Event->pfjetchs(0).ptCor()/pthat > 3.5 ) continue;      // Suggested by Panos
 
 	 for(unsigned j=0; j< Event->nPFJetsCHS(); ++j){
 	   if(Event->pfjetchs(j).ptCor()<mMinPt) continue;
@@ -885,11 +901,30 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	     METPhi_DET->Fill(fabs(Event->pfmet().phi()),hweight); 
 	     FractionMET_DET->Fill(Event->pfmet().met_o_sumet(),hweight); 
 	   }
+
+       // MET fraction for each rap. bin
+
+	   if(fabs(Event->pfjetchs(0).y()) <= 0.5 && Event->pfjetchs(0).tightID())
+	     FractionMET_DET_1bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+       if(fabs(Event->pfjetchs(0).y()) > 0.5 && fabs(Event->pfjetchs(0).y()) <= 1.0  && Event->pfjetchs(0).tightID())
+	     FractionMET_DET_2bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+       if(fabs(Event->pfjetchs(0).y()) > 1.0 && fabs(Event->pfjetchs(0).y()) <= 1.5  && Event->pfjetchs(0).tightID())
+	     FractionMET_DET_3bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+       if(fabs(Event->pfjetchs(0).y()) > 1.5 && fabs(Event->pfjetchs(0).y()) <= 2.0  && Event->pfjetchs(0).tightID())
+	     FractionMET_DET_4bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+       if(fabs(Event->pfjetchs(0).y()) > 2.0 && fabs(Event->pfjetchs(0).y()) <= 2.5  && Event->pfjetchs(0).tightID())
+	     FractionMET_DET_5bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+       if(fabs(Event->pfjetchs(0).y()) > 2.5 && fabs(Event->pfjetchs(0).y()) <= 3.0  && Event->pfjetchs(0).tightID())
+	     FractionMET_DET_6bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+
+       
+
 	   if(fabs(Event->pfjetchs(0).y())>3.2){
 	     if(Event->pfjetchs(0).nemf()<0.90 && Event->pfjetchs(0).ncand()>10){//tight JETID forward region
 	       MET_DET->Fill(Event->pfmet().met(),hweight); 
 	       METPhi_DET->Fill(fabs(Event->pfmet().phi()),hweight); 
 	       FractionMET_DET->Fill(Event->pfmet().met_o_sumet(),hweight); 
+	       FractionMET_DET_7bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
 	     }
 	   }
 	 }
@@ -2257,10 +2292,31 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   METPhi_DET->Fill(fabs(Event->pfmet().phi()),hweight); 
 	   FractionMET_DET->Fill(Event->pfmet().met_o_sumet(),hweight); 
 	 }
+
+     // MET fraction for each rap. bin
+
+     if(fabs(Event->pfjetchs(0).y()) <= 0.5 && Event->pfjetchs(0).tightID())
+       FractionMET_DET_1bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+     if(fabs(Event->pfjetchs(0).y()) > 0.5 && fabs(Event->pfjetchs(0).y()) <= 1.0  && Event->pfjetchs(0).tightID())
+       FractionMET_DET_2bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+     if(fabs(Event->pfjetchs(0).y()) > 1.0 && fabs(Event->pfjetchs(0).y()) <= 1.5  && Event->pfjetchs(0).tightID())
+       FractionMET_DET_3bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+     if(fabs(Event->pfjetchs(0).y()) > 1.5 && fabs(Event->pfjetchs(0).y()) <= 2.0  && Event->pfjetchs(0).tightID())
+       FractionMET_DET_4bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+     if(fabs(Event->pfjetchs(0).y()) > 2.0 && fabs(Event->pfjetchs(0).y()) <= 2.5  && Event->pfjetchs(0).tightID())
+       FractionMET_DET_5bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+     if(fabs(Event->pfjetchs(0).y()) > 2.5 && fabs(Event->pfjetchs(0).y()) <= 3.0  && Event->pfjetchs(0).tightID())
+       FractionMET_DET_6bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
+
+
+
+
+
 	 if(fabs(Event->pfjetchs(0).y())>3.2 && Event->pfjetchs(0).nemf()<0.90 && Event->pfjetchs(0).ncand()>10){
 	   MET_DET->Fill(Event->pfmet().met(),hweight); 
 	   METPhi_DET->Fill(fabs(Event->pfmet().phi()),hweight); 
 	   FractionMET_DET->Fill(Event->pfmet().met_o_sumet(),hweight); 
+       FractionMET_DET_7bin->Fill(Event->pfmet().met_o_sumet(),hweight); 
 	 }
        }
        
