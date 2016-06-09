@@ -2540,19 +2540,19 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 
      double Entries=0;
      for(int j=1;j<pt_DETInclJet_1bin->GetXaxis()->GetNbins()+1;j++){
-       Entries=pt_DETInclJet_1bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_1bin->GetBinContent(j)/(2*1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_1bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_2bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_2bin->GetBinContent(j)/(2*1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_2bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_3bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_3bin->GetBinContent(j)/(2*1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_3bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_4bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_4bin->GetBinContent(j)/(2*1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_4bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_5bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_5bin->GetBinContent(j)/(2*1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_5bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_6bin->GetBinContent(j)/(1119.48*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_6bin->GetBinContent(j)/(2*1119.48*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_6bin->SetBinContent(j,Entries);
-       Entries=pt_DETInclJet_7bin->GetBinContent(j)/(3358.46*Ptbinwidth[j]);
+       Entries=pt_DETInclJet_7bin->GetBinContent(j)/(2*3358.46*Ptbinwidth[j]);
        pt_DETInclJetCrossSectNorm_7bin->SetBinContent(j,Entries); 
      }
    }
