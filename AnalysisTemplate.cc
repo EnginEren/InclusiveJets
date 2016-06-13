@@ -1449,29 +1449,34 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if(hltPassj[11]){
 	     if(prescalej[11]>0) hweight=hweight*prescalej[11];
 	     if(prescalej[11]<0) hweight=hweight*(-prescalej[11]);
-	     if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet60_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet60_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet60_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet60_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet60_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet60_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfjetchs(j).tightID()) {pt_DETInclJet60_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	   }   
-
+	     if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+             if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10 && Event->pfmet().met_o_sumet() < 0.3)
+                 pt_DETInclJet60_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	        }   
+        }    
 	   hweight=1.;
 
 	   //if(hltPassj[2] || hltPassj[12]){
 	   if(hltPassj[12]){
 	   if(prescalej[12]>0) hweight=hweight*prescalej[12];
 	   if(prescalej[12]<0) hweight=hweight*(-prescalej[12]);
-             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet80_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet80_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet80_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet80_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet80_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet80_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfjetchs(j).tightID()) {pt_DETInclJet80_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-           }
+             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet80_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet80_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet80_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet80_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet80_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet80_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+         if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+             if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10 && Event->pfmet().met_o_sumet() < 0.3)
+                 pt_DETInclJet80_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	        }   
+       }
 
 	   hweight=1.;
 
@@ -1479,14 +1484,17 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if(hltPassj[13]){
              if(prescalej[13]>0) hweight=hweight*prescalej[13];
              if(prescalej[13]<0) hweight=hweight*(-prescalej[13]);
-             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet140_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet140_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet140_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet140_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet140_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet140_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfjetchs(j).tightID()) {pt_DETInclJet140_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-           }
+             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3 ) {pt_DETInclJet140_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet140_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet140_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet140_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet140_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet140_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+         if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+             if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10 && Event->pfmet().met_o_sumet() < 0.3)
+                 pt_DETInclJet140_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	        }         
+       }
 
 	   hweight=1.;
 
@@ -1494,14 +1502,18 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if(hltPassj[14]){
              if(prescalej[14]>0) hweight=hweight*prescalej[14];
              if(prescalej[14]<0) hweight=hweight*(-prescalej[14]);
-             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet200_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet200_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet200_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet200_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet200_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet200_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfjetchs(j).tightID()) {pt_DETInclJet200_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-           }
+             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet200_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet200_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet200_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet200_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet200_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet200_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+         if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+             if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10 && Event->pfmet().met_o_sumet() < 0.3)
+                 pt_DETInclJet200_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	        }         
+
+        }
 
 	   hweight=1.;
 
@@ -1509,14 +1521,19 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if(hltPassj[15]){
              if(prescalej[15]>0) hweight=hweight*prescalej[15];
              if(prescalej[15]<0) hweight=hweight*(-prescalej[15]);
-             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet260_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet260_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet260_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet260_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet260_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet260_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet260_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet260_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet260_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet260_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet260_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet260_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfjetchs(j).tightID()) {pt_DETInclJet260_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-           }
+         if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+             if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10 && Event->pfmet().met_o_sumet() < 0.3)
+                 pt_DETInclJet260_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	        }         
+ 
+       }
 
 	   hweight=1.;
 
@@ -1524,14 +1541,18 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if(hltPassj[16]){
              if(prescalej[16]>0) hweight=hweight*prescalej[16];
              if(prescalej[16]<0) hweight=hweight*(-prescalej[16]);
-             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet320_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet320_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet320_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet320_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet320_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet320_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfjetchs(j).tightID()) {pt_DETInclJet320_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-           }
+             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet320_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet320_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet320_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet320_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet320_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet320_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+         if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+             if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10 && Event->pfmet().met_o_sumet() < 0.3)
+                 pt_DETInclJet320_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	        }         
+
+       }
 
 	   hweight=1.;
 
@@ -1539,14 +1560,18 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if(hltPassj[17]){
              if(prescalej[17]>0) hweight=hweight*prescalej[17];
              if(prescalej[17]<0) hweight=hweight*(-prescalej[17]);
-             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet400_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet400_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet400_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet400_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet400_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet400_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfjetchs(j).tightID()) {pt_DETInclJet400_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-           }
+             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet400_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet400_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet400_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet400_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet400_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet400_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+         if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+             if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10 && Event->pfmet().met_o_sumet() < 0.3)
+                 pt_DETInclJet400_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	        }         
+
+        }
 
 	   hweight=1.;
 
@@ -1554,14 +1579,19 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if(hltPassj[18]){
              if(prescalej[18]>0) hweight=hweight*prescalej[18];
              if(prescalej[18]<0) hweight=hweight*(-prescalej[18]);
-             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet450_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet450_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet450_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet450_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) {pt_DETInclJet450_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) {pt_DETInclJet450_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfjetchs(j).tightID()) {pt_DETInclJet450_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
-           }
+             if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet450_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet450_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet450_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet450_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet450_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet450_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+         if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+             if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10 && Event->pfmet().met_o_sumet() < 0.3)
+                 pt_DETInclJet450_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	        }         
+ 
+       
+       }
 	 
 	   hweight=1.;
 
