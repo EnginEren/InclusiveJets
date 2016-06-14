@@ -197,6 +197,15 @@ class Analysis_Template_MC : public edm::EDAnalyzer
     TH1F* pt_GENInclJetCrossSectNorm_6bin;
     TH1F* pt_GENInclJetCrossSectNorm_7bin;
 
+    TH1F* pt_DETInclJet40_1bin;
+    TH1F* pt_DETInclJet40_2bin;
+    TH1F* pt_DETInclJet40_3bin;
+    TH1F* pt_DETInclJet40_4bin;
+    TH1F* pt_DETInclJet40_5bin;
+    TH1F* pt_DETInclJet40_6bin;
+    TH1F* pt_DETInclJet40_7bin;
+
+
     TH1F* pt_DETInclJet60_1bin;
     TH1F* pt_DETInclJet60_2bin;
     TH1F* pt_DETInclJet60_3bin;
@@ -445,6 +454,13 @@ class Analysis_Template_MC : public edm::EDAnalyzer
     TH1F* MET_DET;
     TH1F* METPhi_DET;
     TH1F* FractionMET_DET;
+    TH1F* FractionMET_DET_1bin;
+    TH1F* FractionMET_DET_2bin;
+    TH1F* FractionMET_DET_3bin;
+    TH1F* FractionMET_DET_4bin;
+    TH1F* FractionMET_DET_5bin;
+    TH1F* FractionMET_DET_6bin;
+    TH1F* FractionMET_DET_7bin;
 
     /*RooUnfoldResponse resp_jetpt1etabin;
     RooUnfoldResponse resp_jetpt2etabin;
