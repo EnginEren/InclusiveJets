@@ -68,9 +68,9 @@ void Analysis_Template_MC::beginJob()
    //jecs = new JECs(mIsMCarlo, mGlobalTag, mjettype,mJECUncSrcNames);
    
    //Pt binning
-   double Ptbinning[81] = {0, 1, 5, 6, 8, 10, 12, 15, 18, 21, 24, 28, 32, 37, 43, 49, 56, 64, 74, 84,97, 114, 133, 153, 174, 196, 220, 245, 272, 300, 330, 362, 395, 430, 468,507, 548, 592, 638, 686, 737, 790, 846, 905, 967,1032, 1101, 1172, 1248, 1327, 1410, 1497, 1588, 1684, 1784, 1890, 2000,2116, 2238, 2366, 2500, 2640, 2787, 2941, 3103, 3273, 3450, 3637, 3832,4037, 4252, 4477, 4713, 4961, 5220, 5492, 5777, 6076, 6389, 6717, 7000};
+   double Ptbinning[73] = {18, 21, 24, 28, 32, 37, 43, 49, 56, 64, 74, 84,97, 114, 133, 153, 174, 196, 220, 245, 272, 300, 330, 362, 395, 430, 468,507, 548, 592, 638, 686, 737, 790, 846, 905, 967,1032, 1101, 1172, 1248, 1327, 1410, 1497, 1588, 1684, 1784, 1890, 2000,2116, 2238, 2366, 2500, 2640, 2787, 2941, 3103, 3273, 3450, 3637, 3832,4037, 4252, 4477, 4713, 4961, 5220, 5492, 5777, 6076, 6389, 6717, 7000};
 
-   int Ptbins=80;
+   int Ptbins=72;
    
    //------------------ Histogram Booking --------------------------- //
    num_of_Vtx     = fs->make<TH1F>("num_of_Vtx","num_of_Vtx",100,0.,100.);
@@ -184,7 +184,16 @@ void Analysis_Template_MC::beginJob()
    pt_DETInclJetCrossSectNorm_5bin  = fs->make<TH1F>("pt_DETInclJetCrossSectNorm_5bin","pt_DETInclJetCrossSectNorm_5bin",Ptbins,Ptbinning); pt_DETInclJetCrossSectNorm_5bin->Sumw2();
    pt_DETInclJetCrossSectNorm_6bin  = fs->make<TH1F>("pt_DETInclJetCrossSectNorm_6bin","pt_DETInclJetCrossSectNorm_6bin",Ptbins,Ptbinning); pt_DETInclJetCrossSectNorm_6bin->Sumw2();
    pt_DETInclJetCrossSectNorm_7bin  = fs->make<TH1F>("pt_DETInclJetCrossSectNorm_7bin","pt_DETInclJetCrossSectNorm_7bin",Ptbins,Ptbinning); pt_DETInclJetCrossSectNorm_7bin->Sumw2();
- 
+
+   pt_DETInclJet40_1bin  = fs->make<TH1F>("pt_DETInclJet40_1bin","pt_DETInclJet40_1bin",Ptbins,Ptbinning); pt_DETInclJet40_1bin->Sumw2();
+   pt_DETInclJet40_2bin  = fs->make<TH1F>("pt_DETInclJet40_2bin","pt_DETInclJet40_2bin",Ptbins,Ptbinning); pt_DETInclJet40_2bin->Sumw2();
+   pt_DETInclJet40_3bin  = fs->make<TH1F>("pt_DETInclJet40_3bin","pt_DETInclJet40_3bin",Ptbins,Ptbinning); pt_DETInclJet40_3bin->Sumw2();
+   pt_DETInclJet40_4bin  = fs->make<TH1F>("pt_DETInclJet40_4bin","pt_DETInclJet40_4bin",Ptbins,Ptbinning); pt_DETInclJet40_4bin->Sumw2();
+   pt_DETInclJet40_5bin  = fs->make<TH1F>("pt_DETInclJet40_5bin","pt_DETInclJet40_5bin",Ptbins,Ptbinning); pt_DETInclJet40_5bin->Sumw2();
+   pt_DETInclJet40_6bin  = fs->make<TH1F>("pt_DETInclJet40_6bin","pt_DETInclJet40_6bin",Ptbins,Ptbinning); pt_DETInclJet40_6bin->Sumw2();
+   pt_DETInclJet40_7bin  = fs->make<TH1F>("pt_DETInclJet40_7bin","pt_DETInclJet40_7bin",Ptbins,Ptbinning); pt_DETInclJet40_7bin->Sumw2();
+
+
    pt_DETInclJet60_1bin  = fs->make<TH1F>("pt_DETInclJet60_1bin","pt_DETInclJet60_1bin",Ptbins,Ptbinning); pt_DETInclJet60_1bin->Sumw2();
    pt_DETInclJet60_2bin  = fs->make<TH1F>("pt_DETInclJet60_2bin","pt_DETInclJet60_2bin",Ptbins,Ptbinning); pt_DETInclJet60_2bin->Sumw2();
    pt_DETInclJet60_3bin  = fs->make<TH1F>("pt_DETInclJet60_3bin","pt_DETInclJet60_3bin",Ptbins,Ptbinning); pt_DETInclJet60_3bin->Sumw2();
@@ -1444,12 +1453,31 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	 
 	   //cout<<int(Event->evtHdr().runNo())<<" "<<int(Event->evtHdr().lumi())<<endl;
 	   //cout<<getAvgPU(int(Event->evtHdr().runNo()),int(Event->evtHdr().lumi()))<<" "<<int(Event->evtHdr().runNo())<<" "<<int(Event->evtHdr().lumi())<<endl;
+    
+       if(hltPassj[0] || hltPassj[10]){
+	   //if(hltPassj[11]){
+	     if(hltPassj[0]){ if(prescalej[0]>0) hweight=hweight*prescalej[0]; if(prescalej[0]<0) hweight=hweight*(-prescalej[0]);}
+	     if(hltPassj[10]){ if(prescalej[10]>0) hweight=hweight*prescalej[10]; if(prescalej[10]<0) hweight=hweight*(-prescalej[10]);}
 
-	   //if(hltPassj[1] || hltPassj[11]){
-	   if(hltPassj[11]){
-	     if(prescalej[11]>0) hweight=hweight*prescalej[11];
-	     if(prescalej[11]<0) hweight=hweight*(-prescalej[11]);
-	     if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+         if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet40_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet40_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet40_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet40_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet40_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet40_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
+	     if(fabs(Event->pfjetchs(j).y())>=3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+             if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10 && Event->pfmet().met_o_sumet() < 0.3)
+                 pt_DETInclJet40_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	        }   
+        }    
+	   hweight=1.;
+
+	   if(hltPassj[1] || hltPassj[11]){
+	   //if(hltPassj[11]){
+	     if(hltPassj[1]){ if(prescalej[1]>0) hweight=hweight*prescalej[1]; if(prescalej[1]<0) hweight=hweight*(-prescalej[1]);}
+	     if(hltPassj[11]){ if(prescalej[11]>0) hweight=hweight*prescalej[11]; if(prescalej[11]<0) hweight=hweight*(-prescalej[11]);}
+
+         if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet60_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
@@ -1462,10 +1490,11 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
         }    
 	   hweight=1.;
 
-	   //if(hltPassj[2] || hltPassj[12]){
-	   if(hltPassj[12]){
-	   if(prescalej[12]>0) hweight=hweight*prescalej[12];
-	   if(prescalej[12]<0) hweight=hweight*(-prescalej[12]);
+	   if(hltPassj[2] || hltPassj[12]){
+	   //if(hltPassj[12]){
+        if(hltPassj[2]){ if(prescalej[2]>0) hweight=hweight*prescalej[2]; if(prescalej[2]<0) hweight=hweight*(-prescalej[2]);}
+	    if(hltPassj[12]){ if(prescalej[12]>0) hweight=hweight*prescalej[12]; if(prescalej[12]<0) hweight=hweight*(-prescalej[12]);}
+
              if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet80_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet80_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet80_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
@@ -1480,10 +1509,11 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 
 	   hweight=1.;
 
-	   //if(hltPassj[3] || hltPassj[13]){
-	   if(hltPassj[13]){
-             if(prescalej[13]>0) hweight=hweight*prescalej[13];
-             if(prescalej[13]<0) hweight=hweight*(-prescalej[13]);
+	   if(hltPassj[3] || hltPassj[13]){
+	   //if(hltPassj[13]){
+        if(hltPassj[3]){ if(prescalej[3]>0) hweight=hweight*prescalej[3]; if(prescalej[3]<0) hweight=hweight*(-prescalej[3]);}
+	    if(hltPassj[13]){ if(prescalej[13]>0) hweight=hweight*prescalej[13]; if(prescalej[13]<0) hweight=hweight*(-prescalej[13]);}
+
              if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3 ) {pt_DETInclJet140_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet140_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet140_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
@@ -1498,10 +1528,11 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 
 	   hweight=1.;
 
-	   //if(hltPassj[4] || hltPassj[14]){
-	   if(hltPassj[14]){
-             if(prescalej[14]>0) hweight=hweight*prescalej[14];
-             if(prescalej[14]<0) hweight=hweight*(-prescalej[14]);
+	   if(hltPassj[4] || hltPassj[14]){
+	   //if(hltPassj[14]){
+        if(hltPassj[4]){ if(prescalej[4]>0) hweight=hweight*prescalej[4]; if(prescalej[4]<0) hweight=hweight*(-prescalej[4]);}
+	    if(hltPassj[14]){ if(prescalej[14]>0) hweight=hweight*prescalej[14]; if(prescalej[14]<0) hweight=hweight*(-prescalej[14]);}
+
              if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet200_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet200_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet200_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
@@ -1517,10 +1548,11 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 
 	   hweight=1.;
 
-	   //if(hltPassj[5] || hltPassj[15]){
-	   if(hltPassj[15]){
-             if(prescalej[15]>0) hweight=hweight*prescalej[15];
-             if(prescalej[15]<0) hweight=hweight*(-prescalej[15]);
+	   if(hltPassj[5] || hltPassj[15]){
+	   //if(hltPassj[15]){
+        if(hltPassj[5]){ if(prescalej[5]>0) hweight=hweight*prescalej[5]; if(prescalej[5]<0) hweight=hweight*(-prescalej[5]);}
+	    if(hltPassj[15]){ if(prescalej[15]>0) hweight=hweight*prescalej[15]; if(prescalej[15]<0) hweight=hweight*(-prescalej[15]);}
+
              if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet260_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet260_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet260_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
@@ -1537,10 +1569,12 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 
 	   hweight=1.;
 
-	   //if(hltPassj[6] || hltPassj[16]){
-	   if(hltPassj[16]){
-             if(prescalej[16]>0) hweight=hweight*prescalej[16];
-             if(prescalej[16]<0) hweight=hweight*(-prescalej[16]);
+	   if(hltPassj[6] || hltPassj[16]){
+	   //if(hltPassj[16]){
+        if(hltPassj[6]){ if(prescalej[6]>0) hweight=hweight*prescalej[6]; if(prescalej[6]<0) hweight=hweight*(-prescalej[6]);}
+	    if(hltPassj[16]){ if(prescalej[16]>0) hweight=hweight*prescalej[16]; if(prescalej[16]<0) hweight=hweight*(-prescalej[16]);}
+
+
              if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet320_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet320_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet320_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
@@ -1556,10 +1590,11 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 
 	   hweight=1.;
 
-	   //if(hltPassj[7] || hltPassj[17]){
-	   if(hltPassj[17]){
-             if(prescalej[17]>0) hweight=hweight*prescalej[17];
-             if(prescalej[17]<0) hweight=hweight*(-prescalej[17]);
+	   if(hltPassj[7] || hltPassj[17]){
+	   //if(hltPassj[17]){
+        if(hltPassj[7]){ if(prescalej[7]>0) hweight=hweight*prescalej[7]; if(prescalej[7]<0) hweight=hweight*(-prescalej[7]);}
+	    if(hltPassj[17]){ if(prescalej[17]>0) hweight=hweight*prescalej[17]; if(prescalej[17]<0) hweight=hweight*(-prescalej[17]);}
+
              if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet400_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet400_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet400_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
@@ -1575,10 +1610,11 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 
 	   hweight=1.;
 
-	   //if(hltPassj[8] || hltPassj[18]){
-	   if(hltPassj[18]){
-             if(prescalej[18]>0) hweight=hweight*prescalej[18];
-             if(prescalej[18]<0) hweight=hweight*(-prescalej[18]);
+	   if(hltPassj[8] || hltPassj[18]){
+	   //if(hltPassj[18]){
+        if(hltPassj[8]){ if(prescalej[8]>0) hweight=hweight*prescalej[8]; if(prescalej[8]<0) hweight=hweight*(-prescalej[8]);}
+	    if(hltPassj[18]){ if(prescalej[18]>0) hweight=hweight*prescalej[18]; if(prescalej[18]<0) hweight=hweight*(-prescalej[18]);}
+
              if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet450_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet450_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
 	     if(fabs(Event->pfjetchs(j).y())>=1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) {pt_DETInclJet450_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);}
@@ -2564,7 +2600,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
      
    }
 
-   int Ptbinwidth[81] = {1,1,4,1,2,2,2,3,3,3,3,4,4,5,6,6,7,8,10,10,13,17,19,20,21,22,24,25,27,28,30,32,33,35,38,39,41,44,46,48,51,53,56,59,62,65,69,71,76,79,83,87,91,96,100,106,110,116,122,128,134,140,147,154,162,170,177,187,195,205,215,225,236,248,259,272,285,299,313,328,283};
+   int Ptbinwidth[72] = {3,3,4,4,5,6,6,7,8,10,10,13,17,19,20,21,22,24,25,27,28,30,32,33,35,38,39,41,44,46,48,51,53,56,59,62,65,69,71,76,79,83,87,91,96,100,106,110,116,122,128,134,140,147,154,162,170,177,187,195,205,215,225,236,248,259,272,285,299,313,328,283};
 
    if(!mIsMCarlo){
 
