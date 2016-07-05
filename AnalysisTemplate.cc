@@ -743,7 +743,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if(fabs(Event->genjet(j).Rapidity())>mYMax) continue;
 	   GENjet_ok[j]=1;
 	   
-	   if(Event->genjet(j).pt()>=50){
+	   //if(Event->genjet(j).pt()>=50){
 	     GenJets++;
 	     
 	     if(fabs(Event->genjet(j).Rapidity())<=0.5) pt_GENInclJet_1bin->Fill(Event->genjet(j).pt(),hweight);
@@ -763,7 +763,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	       if(fabs(Event->genjet(j).Rapidity())>2.5 && fabs(Event->genjet(j).Rapidity())<=3.0) pt_GENBTagJet_6bin->Fill(Event->genjet(j).pt(),hweight);
 	       if(fabs(Event->genjet(j).Rapidity())>3.2 && fabs(Event->genjet(j).Rapidity())<=4.7) pt_GENBTagJet_7bin->Fill(Event->genjet(j).pt(),hweight);
 	     }
-	   }
+	   //}
 	 }
 	 
 	 Multiplicity_GENJet->Fill(GenJets,hweight);
@@ -821,7 +821,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   //if(mLowPileUp) {if (TruePileUpInteger<=5) continue;}
 	   
 	   //if(Event->pfjetchs(j).ptCor()>=50 && TruePileUpInteger<=10){
-	   if(Event->pfjetchs(j).ptCor() >= 20){
+	   //if(Event->pfjetchs(j).ptCor() >= 20){
 
 	     DetJets++;
 	     DETjet_ok[j]=1;
@@ -890,7 +890,6 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	       }
 	     }
 	   }
-	 }
 	 
 	 if(DETjet_ok[0]==1){
 	   TruePileUpMCInteger->Fill(TruePileUpInteger,hweight);
@@ -1006,13 +1005,13 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	       TwoD_MatchedInclusiveJets->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight);
 	       
 	       //Separation in eta bins
-	       if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) { PF_MatchedInclusiveJets_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_1bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_1bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
-	       if(fabs(Event->pfjetchs(j).y())>0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID())  { PF_MatchedInclusiveJets_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_2bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_2bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
-	       if(fabs(Event->pfjetchs(j).y())>1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID())  { PF_MatchedInclusiveJets_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_3bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_3bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
-	       if(fabs(Event->pfjetchs(j).y())>1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID())  { PF_MatchedInclusiveJets_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_4bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_4bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
-	       if(fabs(Event->pfjetchs(j).y())>2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID())  { PF_MatchedInclusiveJets_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_5bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_5bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
-	       if(fabs(Event->pfjetchs(j).y())>2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID())  { PF_MatchedInclusiveJets_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_6bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_6bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
-	       if(fabs(Event->pfjetchs(j).y())>3.2 && fabs(Event->pfjetchs(j).y())<=4.7)  {
+	       if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) { PF_MatchedInclusiveJets_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_1bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_1bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
+	       if(fabs(Event->pfjetchs(j).y())>0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3)  { PF_MatchedInclusiveJets_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_2bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_2bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
+	       if(fabs(Event->pfjetchs(j).y())>1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3)  { PF_MatchedInclusiveJets_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_3bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_3bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
+	       if(fabs(Event->pfjetchs(j).y())>1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3)  { PF_MatchedInclusiveJets_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_4bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_4bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
+	       if(fabs(Event->pfjetchs(j).y())>2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3)  { PF_MatchedInclusiveJets_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_5bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_5bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
+	       if(fabs(Event->pfjetchs(j).y())>2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3)  { PF_MatchedInclusiveJets_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_6bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_6bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
+	       if(fabs(Event->pfjetchs(j).y())>3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfmet().met_o_sumet() < 0.3)  {
 		 if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10){//tight JETID forward region
 		   PF_MatchedInclusiveJets_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight); Gen_MatchedInclusiveJets_7bin->Fill(Event->genjet(i).pt(),hweight); TwoD_MatchedInclusiveJets_7bin->Fill(Event->pfjetchs(j).ptCor(),Event->genjet(i).pt(),hweight); } 
 	       }
@@ -1025,13 +1024,13 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	       //Fill that for each eta bins
 	       //ResolutionHistoPt1bin[0]->Fill(resolution,hweight);
 
-	       if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID())  ResolutionInclusiveJets_1bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight);
-	       if(fabs(Event->pfjetchs(j).y())>0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) ResolutionInclusiveJets_2bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight); 
-	       if(fabs(Event->pfjetchs(j).y())>1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) ResolutionInclusiveJets_3bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight);
-	       if(fabs(Event->pfjetchs(j).y())>1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) ResolutionInclusiveJets_4bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight);
-	       if(fabs(Event->pfjetchs(j).y())>2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) ResolutionInclusiveJets_5bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight); 
-	       if(fabs(Event->pfjetchs(j).y())>2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) ResolutionInclusiveJets_6bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight); 
-	       if(fabs(Event->pfjetchs(j).y())>3.2 && fabs(Event->pfjetchs(j).y())<=4.7){ 
+	       if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3)  ResolutionInclusiveJets_1bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight);
+	       if(fabs(Event->pfjetchs(j).y())>0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) ResolutionInclusiveJets_2bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight); 
+	       if(fabs(Event->pfjetchs(j).y())>1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) ResolutionInclusiveJets_3bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight);
+	       if(fabs(Event->pfjetchs(j).y())>1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) ResolutionInclusiveJets_4bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight);
+	       if(fabs(Event->pfjetchs(j).y())>2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) ResolutionInclusiveJets_5bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight); 
+	       if(fabs(Event->pfjetchs(j).y())>2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) ResolutionInclusiveJets_6bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight); 
+	       if(fabs(Event->pfjetchs(j).y())>3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfmet().met_o_sumet() < 0.3){ 
 		 if(Event->pfjetchs(j).nemf()<0.90 && Event->pfjetchs(j).ncand()>10){//tight JETID forward region
 		   {ResolutionInclusiveJets_7bin->Fill(Event->pfjetchs(j).ptCor(),resolution,hweight); ResolutionForward1D->Fill(resolutionNoAbs,hweight);}
 		 }
@@ -1044,13 +1043,13 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if (matchJet>0.3){
 	     PF_FakeInclusiveJets->Fill(Event->pfjetchs(j).ptCor(),hweight);
 	     
-	     if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID()) PF_FakeInclusiveJets_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
-	     if(fabs(Event->pfjetchs(j).y())>0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID()) PF_FakeInclusiveJets_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
-	     if(fabs(Event->pfjetchs(j).y())>1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID()) PF_FakeInclusiveJets_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
-	     if(fabs(Event->pfjetchs(j).y())>1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID()) PF_FakeInclusiveJets_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
-	     if(fabs(Event->pfjetchs(j).y())>2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID()) PF_FakeInclusiveJets_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
-	     if(fabs(Event->pfjetchs(j).y())>2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID()) PF_FakeInclusiveJets_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
-	     if(fabs(Event->pfjetchs(j).y())>3.2 && fabs(Event->pfjetchs(j).y())<=4.7) PF_FakeInclusiveJets_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	     if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) PF_FakeInclusiveJets_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	     if(fabs(Event->pfjetchs(j).y())>0.5 && fabs(Event->pfjetchs(j).y())<=1.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) PF_FakeInclusiveJets_2bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	     if(fabs(Event->pfjetchs(j).y())>1.0 && fabs(Event->pfjetchs(j).y())<=1.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) PF_FakeInclusiveJets_3bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	     if(fabs(Event->pfjetchs(j).y())>1.5 && fabs(Event->pfjetchs(j).y())<=2.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) PF_FakeInclusiveJets_4bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	     if(fabs(Event->pfjetchs(j).y())>2.0 && fabs(Event->pfjetchs(j).y())<=2.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) PF_FakeInclusiveJets_5bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	     if(fabs(Event->pfjetchs(j).y())>2.5 && fabs(Event->pfjetchs(j).y())<=3.0 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) PF_FakeInclusiveJets_6bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
+	     if(fabs(Event->pfjetchs(j).y())>3.2 && fabs(Event->pfjetchs(j).y())<=4.7 && Event->pfmet().met_o_sumet() < 0.3 ) PF_FakeInclusiveJets_7bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
 	     
 	   }
 	 }
@@ -1080,13 +1079,13 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   if (matchJet>0.3){
 	     Gen_MissInclusiveJets->Fill(Event->genjet(i).pt(),hweight);
 	     
-	     if(fabs(Event->genjet(i).Rapidity())<=0.5) Gen_MissInclusiveJets_1bin->Fill(Event->genjet(i).pt(),hweight);
-	     if(fabs(Event->genjet(i).Rapidity())>0.5 && fabs(Event->genjet(i).Rapidity())<=1.0) Gen_MissInclusiveJets_2bin->Fill(Event->genjet(i).pt(),hweight);
-	     if(fabs(Event->genjet(i).Rapidity())>1.0 && fabs(Event->genjet(i).Rapidity())<=1.5) Gen_MissInclusiveJets_3bin->Fill(Event->genjet(i).pt(),hweight);
-	     if(fabs(Event->genjet(i).Rapidity())>1.5 && fabs(Event->genjet(i).Rapidity())<=2.0) Gen_MissInclusiveJets_4bin->Fill(Event->genjet(i).pt(),hweight);
-	     if(fabs(Event->genjet(i).Rapidity())>2.0 && fabs(Event->genjet(i).Rapidity())<=2.5) Gen_MissInclusiveJets_5bin->Fill(Event->genjet(i).pt(),hweight);
-	     if(fabs(Event->genjet(i).Rapidity())>2.5 && fabs(Event->genjet(i).Rapidity())<=3.0) Gen_MissInclusiveJets_6bin->Fill(Event->genjet(i).pt(),hweight);
-	     if(fabs(Event->genjet(i).Rapidity())>3.2 && fabs(Event->genjet(i).Rapidity())<=4.7) Gen_MissInclusiveJets_7bin->Fill(Event->genjet(i).pt(),hweight);
+	     if(fabs(Event->genjet(i).Rapidity())<=0.5 && Event->pfmet().met_o_sumet() < 0.3) Gen_MissInclusiveJets_1bin->Fill(Event->genjet(i).pt(),hweight);
+	     if(fabs(Event->genjet(i).Rapidity())>0.5 && fabs(Event->genjet(i).Rapidity())<=1.0 && Event->pfmet().met_o_sumet() < 0.3) Gen_MissInclusiveJets_2bin->Fill(Event->genjet(i).pt(),hweight);
+	     if(fabs(Event->genjet(i).Rapidity())>1.0 && fabs(Event->genjet(i).Rapidity())<=1.5 && Event->pfmet().met_o_sumet() < 0.3) Gen_MissInclusiveJets_3bin->Fill(Event->genjet(i).pt(),hweight);
+	     if(fabs(Event->genjet(i).Rapidity())>1.5 && fabs(Event->genjet(i).Rapidity())<=2.0 && Event->pfmet().met_o_sumet() < 0.3) Gen_MissInclusiveJets_4bin->Fill(Event->genjet(i).pt(),hweight);
+	     if(fabs(Event->genjet(i).Rapidity())>2.0 && fabs(Event->genjet(i).Rapidity())<=2.5 && Event->pfmet().met_o_sumet() < 0.3) Gen_MissInclusiveJets_5bin->Fill(Event->genjet(i).pt(),hweight);
+	     if(fabs(Event->genjet(i).Rapidity())>2.5 && fabs(Event->genjet(i).Rapidity())<=3.0 && Event->pfmet().met_o_sumet() < 0.3) Gen_MissInclusiveJets_6bin->Fill(Event->genjet(i).pt(),hweight);
+	     if(fabs(Event->genjet(i).Rapidity())>3.2 && fabs(Event->genjet(i).Rapidity())<=4.7 && Event->pfmet().met_o_sumet() < 0.3) Gen_MissInclusiveJets_7bin->Fill(Event->genjet(i).pt(),hweight);
 	     
 	     /*if(fabs(Event->genjet(i).y())<=0.5) { resp_jetpt1etabin->Miss(Event->genjet(i).pt(),hweight);}
 	       if(fabs(Event->genjet(i).y())>0.5 && fabs(Event->genjet(i).y())<=1.0) { resp_jetpt2etabin->Miss(Event->genjet(i).pt(),hweight);}
