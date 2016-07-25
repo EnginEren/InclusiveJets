@@ -998,7 +998,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	     
 	     if(matchJetCounter<=matchJet) matchJet=matchJetCounter;
 	     
-	     if (matchJetCounter<0.3 && histoEntry==0){
+	     if (matchJetCounter<0.2 && histoEntry==0){
 	       histoEntry=1;
 	       PF_MatchedInclusiveJets->Fill(Event->pfjetchs(j).ptCor(),hweight);
 	       Gen_MatchedInclusiveJets->Fill(Event->genjet(i).pt(),hweight);
@@ -1040,7 +1040,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	   
 	   DeltaR_Jets->Fill(matchJet,hweight);
 	   
-	   if (matchJet>0.3){
+	   if (matchJet>0.2){
 	     PF_FakeInclusiveJets->Fill(Event->pfjetchs(j).ptCor(),hweight);
 	     
 	     if(fabs(Event->pfjetchs(j).y())<=0.5 && Event->pfjetchs(j).tightID() && Event->pfmet().met_o_sumet() < 0.3) PF_FakeInclusiveJets_1bin->Fill(Event->pfjetchs(j).ptCor(),hweight);
@@ -1076,7 +1076,7 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	     if(matchJetCounter<=matchJet) matchJet=matchJetCounter;
 	   }
 	   
-	   if (matchJet>0.3){
+	   if (matchJet>0.2){
 	     Gen_MissInclusiveJets->Fill(Event->genjet(i).pt(),hweight);
 	     
 	     if(fabs(Event->genjet(i).Rapidity())<=0.5 && Event->pfmet().met_o_sumet() < 0.3) Gen_MissInclusiveJets_1bin->Fill(Event->genjet(i).pt(),hweight);
@@ -1127,8 +1127,8 @@ void Analysis_Template_MC::analyze(edm::Event const& iEvent, edm::EventSetup con
 	 
 	 for (int j=0; j<nJetTrig; j++){
 	   
-	   hltcut[nJetTrig]=false;
-	   l1cut[nJetTrig]=false;
+	   hltcut[j]=false;
+	   l1cut[j]=false;
 	   
 	   if (hltPassj[j])
 	     {
